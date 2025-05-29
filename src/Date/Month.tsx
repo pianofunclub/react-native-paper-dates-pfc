@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import {
   Icon,
   MD2Theme,
@@ -12,7 +12,7 @@ import {
   addMonths,
   areDatesOnSameDay,
   beginOffset,
-  daySize,
+  calendarDaySize,
   DisableWeekDaysType,
   estimatedMonthHeight,
   getDaysInMonth,
@@ -33,7 +33,7 @@ import type {
   ValidRangeType,
 } from './Calendar'
 import { dayNamesHeight } from './DayNames'
-import { useTextColorOnPrimary } from '../shared/utils'
+import { useTextColor } from '../shared/utils'
 import { memo, useMemo } from 'react'
 import { sharedStyles } from '../shared/styles'
 
@@ -46,7 +46,7 @@ interface BaseMonthProps {
   onPressYear: (year: number) => any
   selectingYear: boolean
   onPressDate: (date: Date) => any
-  primaryColor: string
+  accentColor: string
   selectColor: string
   roundness: number
   validRange?: ValidRangeType
@@ -56,6 +56,7 @@ interface BaseMonthProps {
   endDate?: CalendarDate
   date?: CalendarDate
   dates?: CalendarDates
+  textStyle?: TextStyle
 }
 
 interface MonthRangeProps extends BaseMonthProps {
@@ -86,18 +87,19 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
     selectingYear,
     onPressDate,
     scrollMode,
-    primaryColor,
+    accentColor,
     selectColor,
     roundness,
     disableWeekDays,
     locale,
     validRange,
     startWeekOnMonday,
+    textStyle,
   } = props
   const isHorizontal = scrollMode === 'horizontal'
 
   const theme = useTheme()
-  const textColorOnPrimary = useTextColorOnPrimary()
+  const textColor = useTextColor(accentColor)
   const realIndex = getRealIndex(index)
   const { isDisabled, isWithinValidRange } = useRangeChecker(validRange)
 
@@ -312,6 +314,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
                     ? theme.colors.onSurfaceVariant
                     : theme.colors.onSurface,
                 },
+                textStyle,
               ]}
               selectable={false}
             >
@@ -349,9 +352,10 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
                   onPressDate={onPressDate}
                   isToday={gd.isToday}
                   selectColor={selectColor}
-                  primaryColor={primaryColor}
+                  accentColor={accentColor}
                   disabled={gd.disabled}
-                  textColorOnPrimary={textColorOnPrimary}
+                  textColorOnPrimary={textColor}
+                  textStyle={textStyle}
                 />
               )
             )}
@@ -362,7 +366,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
 }
 
 export const weekMargin = 6
-export const weekSize = daySize + weekMargin
+export const weekSize = calendarDaySize + weekMargin
 export const montHeaderHeight = 56
 export const monthHeaderSingleMarginTop = 4
 export const monthHeaderSingleMarginBottom = 8 + 44 + 12
@@ -385,7 +389,7 @@ const styles = StyleSheet.create({
   week: {
     flexDirection: 'row',
     marginBottom: weekMargin,
-    height: daySize,
+    height: calendarDaySize,
   },
   yearButton: {
     alignSelf: 'flex-start',

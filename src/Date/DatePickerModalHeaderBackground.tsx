@@ -4,10 +4,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function DatePickerModalHeaderBackground({
   children,
+  color,
 }: {
   children: any
+  color?: string
 }) {
-  const backgroundColor = useHeaderBackgroundColor()
+  const backgroundColor = useHeaderBackgroundColor(color)
   const insets = useSafeAreaInsets()
 
   return (
@@ -29,5 +31,6 @@ export default function DatePickerModalHeaderBackground({
 const styles = StyleSheet.create({
   animated: {
     elevation: 4,
+    width: '100%',
   },
 })

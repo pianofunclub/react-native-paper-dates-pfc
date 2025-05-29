@@ -88,6 +88,8 @@ function DatePickerInput(
             startWeekOnMonday={startWeekOnMonday}
             withDateFormatInLabel={rest.withDateFormatInLabel}
             placeholder={rest.placeholder}
+            accentColor={rest.accentColor}
+            selectColor={rest.selectColor}
           />
         ) : null
       }

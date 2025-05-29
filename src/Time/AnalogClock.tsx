@@ -3,6 +3,7 @@ import {
   GestureResponderEvent,
   PanResponder,
   StyleSheet,
+  TextStyle,
   View,
 } from 'react-native'
 import { useTheme } from 'react-native-paper'
@@ -34,6 +35,8 @@ function AnalogClock({
   focused,
   is24Hour,
   onChange,
+  accentColor,
+  textStyle,
 }: {
   hours: number
   minutes: number
@@ -44,6 +47,8 @@ function AnalogClock({
     minutes: number
     focused?: undefined | PossibleClockTypes
   }) => any
+  accentColor?: string
+  textStyle?: TextStyle
 }) {
   const shortPointer = hours >= 12 && is24Hour
 
@@ -80,20 +85,17 @@ function AnalogClock({
 
         // Avoiding the "24h"
         // Should be 12h for 12 hours and PM mode
+        // hours24AndPM is false for 12:00
 
         if (hours12AndPm || hours24AndPM) {
           pickedHours += 12
         }
-        if ((modeRef.current === 'AM' || hours24) && pickedHours === 12) {
-          pickedHours = 0
-        }
 
-        if (!hours24 && modeRef.current === 'AM' && pickedHours === 12) {
+        if (
+          (!hours24 && modeRef.current === 'AM' && pickedHours === 12) ||
+          pickedHours === 24
+        ) {
           pickedHours = 0
-        }
-
-        if (pickedHours === 24) {
-          pickedHours = 12
         }
 
         if (hoursRef.current !== pickedHours || final) {
@@ -154,7 +156,7 @@ function AnalogClock({
         style={[
           styles.line,
           {
-            backgroundColor: theme.colors.primary,
+            backgroundColor: accentColor ?? theme.colors.primary,
             transform: [
               { rotate: -90 + pointerNumber * degreesPerNumber + 'deg' },
               {
@@ -175,7 +177,10 @@ function AnalogClock({
         pointerEvents="none"
       >
         <View
-          style={[styles.endPoint, { backgroundColor: theme.colors.primary }]}
+          style={[
+            styles.endPoint,
+            { backgroundColor: accentColor ?? theme.colors.primary },
+          ]}
         />
       </View>
       <View
@@ -186,15 +191,28 @@ function AnalogClock({
           style={[
             styles.middlePoint,
             {
-              backgroundColor: theme.colors.primary,
+              backgroundColor: accentColor ?? theme.colors.primary,
             },
           ]}
         />
       </View>
       <AnimatedClockSwitcher
         focused={focused}
-        hours={<AnalogClockHours is24Hour={is24Hour} hours={hours} />}
-        minutes={<AnalogClockMinutes minutes={minutes} />}
+        hours={
+          <AnalogClockHours
+            is24Hour={is24Hour}
+            hours={hours}
+            textStyle={textStyle}
+            accentColor={accentColor}
+          />
+        }
+        minutes={
+          <AnalogClockMinutes
+            minutes={minutes}
+            textStyle={textStyle}
+            accentColor={accentColor}
+          />
+        }
       />
     </View>
   )

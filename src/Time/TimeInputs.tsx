@@ -1,6 +1,7 @@
 import {
   StyleSheet,
   TextInput as TextInputNative,
+  TextStyle,
   useWindowDimensions,
   View,
 } from 'react-native'
@@ -31,6 +32,8 @@ function TimeInputs({
   is24Hour,
   inputFontSize,
   locale,
+  accentColor,
+  textStyle,
 }: {
   inputType: PossibleInputTypes
   focused: PossibleClockTypes
@@ -45,6 +48,8 @@ function TimeInputs({
   is24Hour: boolean
   inputFontSize?: number
   locale?: string
+  accentColor?: string
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
@@ -110,6 +115,8 @@ function TimeInputs({
               minutes,
             })
           }}
+          accentColor={accentColor}
+          textStyle={textStyle}
         />
         {inputType === 'keyboard' ? (
           <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
@@ -175,6 +182,8 @@ function TimeInputs({
               minutes: newMinutes,
             })
           }}
+          accentColor={accentColor}
+          textStyle={textStyle}
         />
         {inputType === 'keyboard' ? (
           <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
@@ -189,6 +198,8 @@ function TimeInputs({
             hours={hours}
             onChange={onChangeHours}
             inputType={inputType}
+            accentColor={accentColor}
+            textStyle={textStyle}
           />
         </>
       )}

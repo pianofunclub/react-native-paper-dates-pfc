@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { TextStyle, View } from 'react-native'
 import Swiper from './Swiper'
 import Month from './Month'
 import {
@@ -10,11 +10,10 @@ import {
 } from './dateUtils'
 
 import CalendarHeader from './CalendarHeader'
-import { memo, useCallback, useMemo, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import YearPicker from './YearPicker'
-import Color from 'color'
 import { useTheme } from 'react-native-paper'
-import { darkenBy, lightenBy, useLatest } from '../shared/utils'
+import { useLatest } from '../shared/utils'
 import { sharedStyles } from '../shared/styles'
 
 export type ModeType = 'single' | 'range' | 'multiple'
@@ -40,6 +39,9 @@ export type BaseCalendarProps = {
   startDate?: CalendarDate
   endDate?: CalendarDate
   dateMode?: 'start' | 'end'
+  accentColor?: string
+  selectColor?: string
+  textStyle?: TextStyle
 }
 
 export type CalendarDate = Date | undefined
@@ -96,6 +98,9 @@ function Calendar(
     validRange,
     dateMode,
     startWeekOnMonday,
+    accentColor = '#0B6327',
+    selectColor = '#E1EDE7',
+    textStyle,
   } = props
   const scrollMode =
     mode === 'range' || mode === 'multiple' ? 'vertical' : 'horizontal'
@@ -161,16 +166,6 @@ function Calendar(
     [mode, dateMode, onChangeRef, startDateRef, endDateRef, datesRef]
   )
 
-  const selectColor = useMemo<string>(() => {
-    if (theme.isV3) {
-      return theme.colors.primaryContainer
-    }
-    if (theme.dark) {
-      return darkenBy(Color(theme.colors.primary), 0.1).hex()
-    }
-    return lightenBy(Color(theme.colors.primary), 0.9).hex()
-  }, [theme])
-
   return (
     <View style={sharedStyles.root}>
       <Swiper
@@ -193,11 +188,12 @@ function Calendar(
             selectingYear={selectingYear}
             onPressDate={onPressDate}
             scrollMode={scrollMode}
-            primaryColor={theme.colors.primary}
+            accentColor={accentColor}
             selectColor={selectColor}
             roundness={theme.roundness}
             disableWeekDays={disableWeekDays}
             startWeekOnMonday={startWeekOnMonday || false}
+            textStyle={textStyle}
           />
         )}
         renderHeader={({ onPrev, onNext }) => (
@@ -208,6 +204,7 @@ function Calendar(
             scrollMode={scrollMode}
             disableWeekDays={disableWeekDays}
             startWeekOnMonday={startWeekOnMonday || false}
+            textStyle={textStyle}
           />
         )}
       />

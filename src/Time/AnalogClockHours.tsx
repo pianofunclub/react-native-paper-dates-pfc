@@ -1,19 +1,23 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { circleSize } from './timeUtils'
-import { useTextColorOnPrimary } from '../shared/utils'
+import { useTextColor } from '../shared/utils'
 import { memo } from 'react'
 
 function AnalogClockHours({
   is24Hour,
   hours,
+  textStyle,
+  accentColor,
 }: {
   is24Hour: boolean
   hours: number
+  textStyle?: TextStyle
+  accentColor?: string
 }) {
   const outerRange = getHourNumbers(false, circleSize, 12, 12)
   const innerRange = getHourNumbers(true, circleSize, 12, 12)
-  const color = useTextColorOnPrimary()
+  const color = useTextColor(accentColor)
 
   return (
     <>
@@ -33,13 +37,14 @@ function AnalogClockHours({
             {/* Display 00 instead of 12 for AM hours */}
             <Text
               maxFontSizeMultiplier={1.5}
-              style={
+              style={[
                 (!is24Hour && i + 1 === hours) ||
                 (hours === i + 1 && hours !== 12) ||
                 (i + 1 === 12 && hours === 0)
                   ? { color }
-                  : null
-              }
+                  : null,
+                textStyle,
+              ]}
               variant="bodyLarge"
               selectable={false}
             >

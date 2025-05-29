@@ -8,13 +8,15 @@ function DatePickerModalStatusBar({
   disableSafeTop,
   disableStatusBar,
   statusBarOnTopOfBackdrop,
+  color,
 }: {
   disableSafeTop: boolean
   disableStatusBar: boolean
   statusBarOnTopOfBackdrop: boolean
+  color: string | undefined
 }) {
   const insets = useSafeAreaInsets()
-  const headerBackgroundColor = useHeaderBackgroundColor()
+  const headerBackgroundColor = useHeaderBackgroundColor(color)
 
   const onDarkBackground =
     Color(headerBackgroundColor).isDark() || statusBarOnTopOfBackdrop

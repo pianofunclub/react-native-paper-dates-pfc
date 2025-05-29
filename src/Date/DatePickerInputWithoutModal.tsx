@@ -11,6 +11,7 @@ function DatePickerInputWithoutModal(
     value,
     onChange,
     style,
+    helperTextStyle,
     locale,
     validRange,
     inputMode,
@@ -99,10 +100,13 @@ function DatePickerInputWithoutModal(
             error={(!!error && !hideValidationErrors) || !!hasError}
             style={[styles.input, style]}
             inputButton={inputButton}
+            activeUnderlineColor={rest.accentColor}
+            underlineColor={rest.accentColor}
+            selectionColor={rest.selectColor}
           />
         </View>
         {error && !hideValidationErrors ? (
-          <HelperText type="error" visible={!!error}>
+          <HelperText type="error" visible={!!error} style={helperTextStyle}>
             {error}
           </HelperText>
         ) : null}

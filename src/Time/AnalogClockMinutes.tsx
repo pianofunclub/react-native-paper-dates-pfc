@@ -1,12 +1,20 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { circleSize } from './timeUtils'
-import { useTextColorOnPrimary } from '../shared/utils'
+import { useTextColor } from '../shared/utils'
 import { memo } from 'react'
 
-function AnalogClockMinutes({ minutes }: { minutes: number }) {
+function AnalogClockMinutes({
+  minutes,
+  textStyle,
+  accentColor,
+}: {
+  minutes: number
+  textStyle?: TextStyle
+  accentColor?: string
+}) {
   const range = getMinuteNumbers(circleSize, 12)
-  const color = useTextColorOnPrimary()
+  const color = useTextColor(accentColor)
 
   return (
     <>
@@ -33,7 +41,7 @@ function AnalogClockMinutes({ minutes }: { minutes: number }) {
             <View style={styles.outerHourInner}>
               <Text
                 maxFontSizeMultiplier={1.5}
-                style={isCurrent ? { color } : undefined}
+                style={[isCurrent ? { color } : undefined, textStyle]}
                 selectable={false}
                 variant="bodyLarge"
               >

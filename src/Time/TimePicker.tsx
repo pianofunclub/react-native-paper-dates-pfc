@@ -1,4 +1,4 @@
-import { StyleSheet, useWindowDimensions, View } from 'react-native'
+import { StyleSheet, TextStyle, useWindowDimensions, View } from 'react-native'
 
 import {
   circleSize,
@@ -34,6 +34,8 @@ function TimePicker({
   locale,
   use24HourClock,
   inputFontSize,
+  accentColor,
+  textStyle,
 }: {
   locale?: undefined | string
   inputType: PossibleInputTypes
@@ -44,6 +46,8 @@ function TimePicker({
   onChange: onChangeFunc
   use24HourClock?: boolean
   inputFontSize?: number
+  accentColor?: string
+  textStyle?: TextStyle
 }) {
   const dimensions = useWindowDimensions()
   const isLandscape = dimensions.width > dimensions.height
@@ -116,6 +120,8 @@ function TimePicker({
           onFocusInput={onFocusInput}
           focused={focused}
           locale={locale}
+          accentColor={accentColor}
+          textStyle={textStyle}
         />
         {inputType === inputTypes.picker ? (
           <View style={styles.clockContainer}>
@@ -125,6 +131,8 @@ function TimePicker({
               focused={focused}
               is24Hour={is24Hour}
               onChange={onInnerChange}
+              accentColor={accentColor}
+              textStyle={textStyle}
             />
           </View>
         ) : null}

@@ -154,27 +154,18 @@ export function getAngle(left: number, top: number, size: number) {
   return angle
 }
 
-export function useSwitchColors(highlighted: boolean) {
+export function useSwitchColors(
+  highlighted: boolean,
+  accentColor: string | undefined
+) {
   const theme = useTheme()
+
   const backgroundColor = useMemo<string>(() => {
-    if (theme.dark) {
-      if (highlighted) {
-        return theme.isV3
-          ? theme.colors.tertiaryContainer
-          : Color(theme.colors.primary).hex()
-      }
-      return theme.colors.backdrop
-    }
-
     if (highlighted) {
-      if (theme.isV3) {
-        return theme.colors.primaryContainer
-      }
-
-      return Color(theme.colors.primary).lighten(1).hex()
+      return accentColor ?? Color(theme.colors.primary).lighten(1).hex()
     }
     return theme.colors.surface
-  }, [highlighted, theme])
+  }, [highlighted, theme, accentColor])
 
   const color = useMemo<string>(() => {
     if (highlighted && !theme.dark) {
@@ -195,31 +186,17 @@ export function useSwitchColors(highlighted: boolean) {
   return { backgroundColor, color }
 }
 
-export function useInputColors(highlighted: boolean) {
+export function useInputColors(
+  highlighted: boolean,
+  accentColor: string | undefined
+) {
   const theme = useTheme()
   const backgroundColor = useMemo<string>(() => {
-    if (theme.dark) {
-      if (highlighted) {
-        return theme.isV3
-          ? theme.colors.primaryContainer
-          : Color(theme.colors.primary).hex()
-      }
-      return theme.isV3
-        ? theme.colors.surfaceVariant
-        : Color(theme.colors.surface).lighten(1.4).hex()
-    }
-
     if (highlighted) {
-      if (theme.isV3) {
-        return theme.colors.secondaryContainer
-      }
-      return Color(theme.colors.primary).lighten(1).hex()
-    }
-    if (theme.isV3) {
-      return theme.colors.surfaceVariant
+      return accentColor ?? Color(theme.colors.primary).lighten(1).hex()
     }
     return Color(theme.colors.surface).darken(0.1).hex()
-  }, [highlighted, theme])
+  }, [highlighted, theme, accentColor])
 
   const color = useMemo<string>(() => {
     if (theme.isV3) {

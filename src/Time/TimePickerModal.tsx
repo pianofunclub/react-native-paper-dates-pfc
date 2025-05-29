@@ -5,6 +5,7 @@ import {
   Modal,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
@@ -47,6 +48,7 @@ export function TimePickerModal({
   use24HourClock,
   inputFontSize,
   defaultInputType,
+  textStyle,
 }: {
   locale?: undefined | string
   label?: string
@@ -64,6 +66,7 @@ export function TimePickerModal({
   use24HourClock?: boolean
   inputFontSize?: number
   defaultInputType?: PossibleInputTypes
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
@@ -172,6 +175,7 @@ export function TimePickerModal({
                         ? theme.colors.onSurfaceVariant
                         : (theme as any as MD2Theme).colors.text,
                     },
+                    textStyle,
                   ]}
                 >
                   {uppercase ? labelText.toUpperCase() : labelText}
@@ -188,6 +192,7 @@ export function TimePickerModal({
                   minutes={localMinutes}
                   onChange={onChange}
                   onFocusInput={onFocusInput}
+                  textStyle={textStyle}
                 />
               </View>
               <View style={styles.bottom}>

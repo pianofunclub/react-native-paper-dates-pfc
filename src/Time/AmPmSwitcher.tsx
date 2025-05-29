@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { MD2Theme, Text, TouchableRipple, useTheme } from 'react-native-paper'
 import { useContext, useMemo } from 'react'
 import Color from 'color'
@@ -10,10 +10,14 @@ export default function AmPmSwitcher({
   onChange,
   hours,
   inputType,
+  accentColor,
+  textStyle,
 }: {
   hours: number
   onChange: (newHours: number) => any
   inputType: PossibleInputTypes
+  accentColor?: string
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
@@ -57,6 +61,8 @@ export default function AmPmSwitcher({
         }}
         selected={isAM}
         disabled={isAM}
+        accentColor={accentColor}
+        textStyle={textStyle}
       />
       <View style={[styles.switchSeparator, { backgroundColor }]} />
       <SwitchButton
@@ -69,25 +75,31 @@ export default function AmPmSwitcher({
         }}
         selected={!isAM}
         disabled={!isAM}
+        accentColor={accentColor}
+        textStyle={textStyle}
       />
     </View>
   )
 }
 
-function SwitchButton({
+export function SwitchButton({
   label,
   onPress,
   selected,
   disabled,
+  accentColor,
+  textStyle,
 }: {
   label: string
   onPress: (() => any) | undefined
   selected: boolean
   disabled: boolean
+  accentColor?: string
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
-  const { backgroundColor, color } = useSwitchColors(selected)
+  const { backgroundColor, color } = useSwitchColors(selected, accentColor)
 
   let textFont = theme?.isV3
     ? theme.fonts.titleMedium
@@ -115,6 +127,7 @@ function SwitchButton({
               ...textFont,
               color: color,
             },
+            textStyle,
           ]}
         >
           {label}

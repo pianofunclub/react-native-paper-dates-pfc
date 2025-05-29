@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { IconButton, useTheme } from 'react-native-paper'
 import DayNames, { dayNamesHeight } from './DayNames'
 import type { DisableWeekDaysType } from './dateUtils'
@@ -29,6 +29,7 @@ function CalendarHeader({
   disableWeekDays,
   locale,
   startWeekOnMonday,
+  textStyle,
 }: {
   locale: undefined | string
   scrollMode: 'horizontal' | 'vertical'
@@ -36,6 +37,7 @@ function CalendarHeader({
   onNext: () => any
   disableWeekDays?: DisableWeekDaysType
   startWeekOnMonday: boolean
+  textStyle?: TextStyle
 }) {
   const isHorizontal = scrollMode === 'horizontal'
 
@@ -66,6 +68,7 @@ function CalendarHeader({
         disableWeekDays={disableWeekDays}
         locale={locale}
         startWeekOnMonday={startWeekOnMonday}
+        textStyle={textStyle}
       />
     </View>
   )

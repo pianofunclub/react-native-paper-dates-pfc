@@ -1,8 +1,14 @@
 import { memo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { MD2Theme, Text, useTheme } from 'react-native-paper'
 
-function DayName({ label }: { label: string }) {
+function DayName({
+  label,
+  textStyle,
+}: {
+  label: string
+  textStyle?: TextStyle
+}) {
   const theme = useTheme()
 
   let textFont = theme?.isV3
@@ -16,6 +22,7 @@ function DayName({ label }: { label: string }) {
         style={[
           styles.dayNameLabel,
           { ...textFont, color: theme.colors.onSurface },
+          textStyle,
         ]}
         selectable={false}
       >

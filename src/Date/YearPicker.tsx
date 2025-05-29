@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, TextStyle, View } from 'react-native'
 import { MD2Theme, Text, TouchableRipple, useTheme } from 'react-native-paper'
 import { range } from '../shared/utils'
 import { memo, useEffect, useRef } from 'react'
@@ -73,10 +73,14 @@ function YearPure({
   year,
   selected,
   onPressYear,
+  backgroundColor,
+  textStyle,
 }: {
   year: number
   selected: boolean
   onPressYear: (newYear: number) => any
+  backgroundColor?: string
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
@@ -95,7 +99,9 @@ function YearPure({
         <View
           style={[
             styles.yearInner,
-            selected ? { backgroundColor: theme.colors.primary } : null,
+            selected
+              ? { backgroundColor: backgroundColor ?? theme.colors.primary }
+              : null,
           ]}
         >
           <Text
@@ -111,6 +117,7 @@ function YearPure({
                       : theme.colors.onSurface,
                   },
               { ...textFont },
+              textStyle,
             ]}
             selectable={false}
           >
