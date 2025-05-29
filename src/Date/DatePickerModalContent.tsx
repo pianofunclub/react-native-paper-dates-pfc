@@ -18,6 +18,7 @@ import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
 import { useTheme } from 'react-native-paper'
 import DatePickerModalStatusBar from './DatePickerModalStatusBar'
 import { memo, useCallback, useEffect, useState } from 'react'
+import { View, StyleSheet, TextStyle } from 'react-native'
 
 export type LocalState = {
   startDate: CalendarDate
@@ -30,14 +31,16 @@ interface DatePickerModalContentBaseProps {
   inputFormat?: string
   locale: string
   onDismiss: () => any
-
   saveLabelDisabled?: boolean
   uppercase?: boolean
   inputEnabled?: boolean
-
   disableSafeTop?: boolean
   disableStatusBar?: boolean
   statusBarOnTopOfBackdrop?: boolean
+  accentColor?: string
+  selectColor?: string
+  textStyle?: TextStyle
+  inputTextStyle?: TextStyle
 }
 
 export interface DatePickerModalContentRangeProps
@@ -93,6 +96,10 @@ export function DatePickerModalContent(
     endYear,
     statusBarOnTopOfBackdrop,
     startWeekOnMonday,
+    accentColor,
+    selectColor,
+    textStyle,
+    inputTextStyle,
   } = props
   const theme = useTheme()
   const anyProps = props as any
@@ -148,11 +155,12 @@ export function DatePickerModalContent(
 
   return (
     <>
-      <DatePickerModalHeaderBackground>
+      <DatePickerModalHeaderBackground color={accentColor}>
         <DatePickerModalStatusBar
           disableSafeTop={!!disableSafeTop}
           disableStatusBar={!!disableStatusBar}
           statusBarOnTopOfBackdrop={!!statusBarOnTopOfBackdrop}
+          color={accentColor}
         />
         <DatePickerModalHeader
           locale={locale}
@@ -162,6 +170,11 @@ export function DatePickerModalContent(
           saveLabelDisabled={props.saveLabelDisabled ?? false}
           uppercase={props.uppercase ?? defaultUppercase}
           closeIcon={props.closeIcon}
+          accentColor={accentColor}
+          saveButtonLabelStyle={StyleSheet.flatten([
+            styles.saveButtonLabel,
+            textStyle,
+          ])}
         />
         <DatePickerModalContentHeader
           state={state}
@@ -179,26 +192,33 @@ export function DatePickerModalContent(
           editIcon={props?.editIcon}
           calendarIcon={props.calendarIcon}
           allowEditing={props.allowEditing ?? true}
+          accentColor={accentColor}
+          textStyle={textStyle}
         />
       </DatePickerModalHeaderBackground>
       <AnimatedCrossView
         collapsed={collapsed}
         calendar={
-          <Calendar
-            locale={locale}
-            mode={mode}
-            startDate={state.startDate}
-            endDate={state.endDate}
-            date={state.date}
-            onChange={onInnerChange}
-            disableWeekDays={disableWeekDays}
-            dates={state.dates}
-            validRange={validRange}
-            dateMode={dateMode}
-            startYear={startYear}
-            endYear={endYear}
-            startWeekOnMonday={startWeekOnMonday}
-          />
+          <View style={styles.calendarContainer}>
+            <Calendar
+              locale={locale}
+              mode={mode}
+              startDate={state.startDate}
+              endDate={state.endDate}
+              date={state.date}
+              onChange={onInnerChange}
+              disableWeekDays={disableWeekDays}
+              dates={state.dates}
+              validRange={validRange}
+              dateMode={dateMode}
+              startYear={startYear}
+              endYear={endYear}
+              startWeekOnMonday={startWeekOnMonday}
+              accentColor={accentColor}
+              selectColor={selectColor}
+              textStyle={textStyle}
+            />
+          </View>
         }
         calendarEdit={
           <CalendarEdit
@@ -214,11 +234,26 @@ export function DatePickerModalContent(
             inputEnabled={props.inputEnabled}
             withDateFormatInLabel={props.withDateFormatInLabel}
             placeholder={props.placeholder}
+            accentColor={accentColor}
+            selectColor={selectColor}
+            helperTextStyle={textStyle}
+            inputTextStyle={inputTextStyle}
           />
         }
       />
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  calendarContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  saveButtonLabel: {
+    fontSize: 25,
+  },
+})
 
 export default memo(DatePickerModalContent)

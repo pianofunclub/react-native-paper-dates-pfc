@@ -1,6 +1,6 @@
-import { Animated, StyleSheet } from 'react-native'
-import { Appbar, Button, useTheme } from 'react-native-paper'
-import { useHeaderTextColor } from '../shared/utils'
+import { Animated, StyleSheet, TextStyle } from 'react-native'
+import { Appbar, Button } from 'react-native-paper'
+import { useTextColor } from '../shared/utils'
 import { getTranslation } from '../translations/utils'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -12,6 +12,10 @@ export interface DatePickerModalHeaderProps {
   onSave: () => void
   locale: string | undefined
   closeIcon?: string
+  hideSaveButton?: boolean
+  isLoading?: boolean
+  saveButtonLabelStyle?: TextStyle
+  accentColor?: string
 }
 
 export default function DatePickerModalHeader(
@@ -19,10 +23,8 @@ export default function DatePickerModalHeader(
 ) {
   const { locale, closeIcon = 'close' } = props
   const saveLabel = props.saveLabel || getTranslation(locale, 'save')
-  const color = useHeaderTextColor()
+  const color = useTextColor(props.accentColor)
   const insets = useSafeAreaInsets()
-
-  const theme = useTheme()
 
   return (
     <>
@@ -43,18 +45,21 @@ export default function DatePickerModalHeader(
             color={color}
             testID="react-native-paper-dates-close"
           />
-          <Button
-            textColor={theme.isV3 ? theme.colors.primary : color}
-            onPress={props.onSave}
-            disabled={props.saveLabelDisabled ?? false}
-            uppercase={props.uppercase ?? true}
-            contentStyle={styles.buttonStyle}
-            mode="text"
-            labelStyle={styles.buttonLabel}
-            testID="react-native-paper-dates-save"
-          >
-            {saveLabel}
-          </Button>
+          {!props.hideSaveButton ? (
+            <Button
+              textColor={color}
+              onPress={props.onSave}
+              disabled={props.saveLabelDisabled ?? false}
+              uppercase={false}
+              contentStyle={styles.buttonStyle}
+              mode="text"
+              labelStyle={[styles.buttonLabel, props.saveButtonLabelStyle]}
+              testID="react-native-paper-dates-save"
+              loading={props.isLoading}
+            >
+              {saveLabel}
+            </Button>
+          ) : null}
         </Appbar>
       </Animated.View>
     </>

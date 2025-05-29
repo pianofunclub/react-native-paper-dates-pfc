@@ -2,6 +2,7 @@ import {
   Keyboard,
   StyleSheet,
   TextInput as TextInputNative,
+  TextStyle,
   View,
 } from 'react-native'
 
@@ -25,6 +26,10 @@ function CalendarEdit({
   inputEnabled,
   withDateFormatInLabel,
   placeholder,
+  accentColor,
+  selectColor,
+  helperTextStyle,
+  inputTextStyle,
 }: {
   mode: ModeType
   label?: string
@@ -38,6 +43,10 @@ function CalendarEdit({
   inputEnabled?: boolean
   withDateFormatInLabel?: boolean
   placeholder?: string
+  accentColor?: string
+  selectColor?: string
+  helperTextStyle?: TextStyle
+  inputTextStyle?: TextStyle
 }) {
   const dateInput = useRef<TextInputNative | null>(null)
   const startInput = useRef<TextInputNative | null>(null)
@@ -98,6 +107,10 @@ function CalendarEdit({
           inputEnabled={inputEnabled}
           withDateFormatInLabel={withDateFormatInLabel}
           placeholder={placeholder}
+          accentColor={accentColor}
+          selectColor={selectColor}
+          style={inputTextStyle}
+          helperTextStyle={helperTextStyle}
         />
       ) : null}
       {mode === 'range' ? (
@@ -117,6 +130,10 @@ function CalendarEdit({
             inputEnabled={inputEnabled}
             withDateFormatInLabel={withDateFormatInLabel}
             placeholder={placeholder}
+            accentColor={accentColor}
+            selectColor={selectColor}
+            style={inputTextStyle}
+            helperTextStyle={helperTextStyle}
           />
           <View style={styles.separator} />
           <DatePickerInputWithoutModal
@@ -133,6 +150,10 @@ function CalendarEdit({
             inputEnabled={inputEnabled}
             withDateFormatInLabel={withDateFormatInLabel}
             placeholder={placeholder}
+            accentColor={accentColor}
+            selectColor={selectColor}
+            style={inputTextStyle}
+            helperTextStyle={helperTextStyle}
           />
         </View>
       ) : null}

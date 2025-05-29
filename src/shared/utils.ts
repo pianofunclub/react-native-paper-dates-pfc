@@ -29,8 +29,12 @@ export function useLatest<T>(value: T) {
   return ref
 }
 
-export function useHeaderBackgroundColor() {
+export function useHeaderBackgroundColor(color: string | undefined) {
   const theme = useTheme()
+
+  if (color) {
+    return color
+  }
   if (theme.isV3) {
     return theme.colors.surface
   }
@@ -39,37 +43,23 @@ export function useHeaderBackgroundColor() {
     : theme.colors.primary
 }
 
-export function useHeaderColorIsLight() {
+export function useHeaderColorIsLight(backgroundColor: string | undefined) {
   const theme = useTheme()
   const background =
-    theme.dark && theme.mode === 'adaptive'
+    backgroundColor ??
+    (theme.dark && theme.mode === 'adaptive'
       ? theme.colors.surface
-      : theme.colors.primary
+      : theme.colors.primary)
   return Color(background).isLight()
 }
 
-export function useHeaderTextColor() {
+export function useTextColor(backgroundColor: string | undefined) {
   const theme = useTheme()
-  const isLight = useHeaderColorIsLight()
+  const isLight = useHeaderColorIsLight(backgroundColor)
   if (theme.isV3) {
     return theme.colors.onSurfaceVariant
   }
-  return !isLight ? '#fff' : '#000'
-}
-
-export function useTextColorOnPrimary() {
-  const theme = useTheme()
-  const isDark = !Color(theme.colors.primary).isLight()
-
-  if (theme.isV3) {
-    if (isDark && theme.dark) {
-      return theme.colors.onSurface
-    } else {
-      return theme.colors.onPrimary
-    }
-  }
-
-  return isDark ? '#fff' : '#000'
+  return !isLight ? '#CCE4D9' : '#3D3C3C'
 }
 
 export function range(start: number, end: number) {

@@ -1,7 +1,7 @@
 import { MD2Theme, Text, TouchableRipple } from 'react-native-paper'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import DayRange from './DayRange'
-import { daySize } from './dateUtils'
+import { calendarDaySize } from './dateUtils'
 
 import type { PaperTheme } from '../shared/utils'
 import { memo, useCallback } from 'react'
@@ -22,11 +22,12 @@ function Day(props: {
   inRange: boolean
   leftCrop: boolean
   rightCrop: boolean
-  primaryColor: string
+  accentColor: string
   selectColor: string
   isToday: boolean
   disabled: boolean
   onPressDate: (date: Date) => any
+  textStyle?: TextStyle
 }) {
   const {
     day,
@@ -37,12 +38,13 @@ function Day(props: {
     leftCrop,
     rightCrop,
     onPressDate,
-    primaryColor,
+    accentColor,
     selectColor,
     isToday,
     disabled,
     textColorOnPrimary,
     theme,
+    textStyle,
   } = props
   const borderColorFallback = theme.dark ? '#fff' : '#000'
   const selectedOrInRangeDarkMode = selected || (inRange && theme.dark)
@@ -113,7 +115,7 @@ function Day(props: {
           style={[
             styles.day,
             isToday ? { borderColor: borderColor } : null,
-            selected ? { backgroundColor: primaryColor } : null,
+            selected ? { backgroundColor: accentColor } : null,
           ]}
         >
           <Text
@@ -125,6 +127,7 @@ function Day(props: {
                   }
                 : undefined,
               { ...textFont },
+              textStyle,
             ]}
             selectable={false}
           >
@@ -138,17 +141,17 @@ function Day(props: {
 
 const styles = StyleSheet.create({
   button: {
-    width: daySize,
-    height: daySize,
+    width: calendarDaySize,
+    height: calendarDaySize,
     overflow: 'hidden',
-    borderRadius: daySize / 2,
+    borderRadius: calendarDaySize / 2,
   },
   day: {
     flexBasis: 0,
     flex: 1,
-    borderRadius: daySize / 2,
-    width: daySize,
-    height: daySize,
+    borderRadius: calendarDaySize / 2,
+    width: calendarDaySize,
+    height: calendarDaySize,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,

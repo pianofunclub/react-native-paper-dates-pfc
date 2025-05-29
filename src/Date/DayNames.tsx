@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import DayName from './DayName'
 import { useTheme } from 'react-native-paper'
 import { DisableWeekDaysType, showWeekDay } from './dateUtils'
@@ -10,10 +10,12 @@ function DayNames({
   disableWeekDays,
   locale,
   startWeekOnMonday,
+  textStyle,
 }: {
   locale: undefined | string
   disableWeekDays?: DisableWeekDaysType
   startWeekOnMonday: boolean
+  textStyle?: TextStyle
 }) {
   const theme = useTheme()
 
@@ -45,7 +47,11 @@ function DayNames({
       {shortDayNames
         .filter((_, dayIndex) => showWeekDay(dayIndex, disableWeekDays))
         .map((dayName, i) => (
-          <DayName key={`${dayName}_${i}`} label={dayName} />
+          <DayName
+            key={`${dayName}_${i}`}
+            label={dayName}
+            textStyle={textStyle}
+          />
         ))}
     </View>
   )

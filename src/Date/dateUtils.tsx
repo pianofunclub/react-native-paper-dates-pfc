@@ -168,7 +168,8 @@ export function isLeapYear({ year }: { year: number }) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 }
 
-export const daySize = 46
+export const calendarDaySize = 46
+export const daySize = 62
 export const estimatedMonthHeight = 360
 export const startAtIndex = 1200
 export const totalMonths = startAtIndex * 2

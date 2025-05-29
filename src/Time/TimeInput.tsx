@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TextInput,
   TextInputProps,
+  TextStyle,
   View,
 } from 'react-native'
 import { MD2Theme, TouchableRipple, useTheme } from 'react-native-paper'
@@ -26,6 +27,8 @@ interface TimeInputProps
   onChanged: (n: number) => any
   inputType: PossibleInputTypes
   inputFontSize?: number
+  accentColor?: string
+  textStyle?: TextStyle
 }
 
 function TimeInput(
@@ -37,6 +40,8 @@ function TimeInput(
     onChanged,
     inputType,
     inputFontSize = 57,
+    accentColor,
+    textStyle,
     ...rest
   }: TimeInputProps,
   ref: any
@@ -48,7 +53,7 @@ function TimeInput(
 
   const highlighted = inputType === inputTypes.picker ? pressed : inputFocused
 
-  const { color, backgroundColor } = useInputColors(highlighted)
+  const { color, backgroundColor } = useInputColors(highlighted, accentColor)
 
   useEffect(() => {
     setControlledValue(`${value}`)
@@ -106,6 +111,7 @@ function TimeInput(
             paddingBottom: Platform.OS === 'android' ? 0 : undefined,
             textAlign: 'center',
           },
+          textStyle,
         ]}
         maxFontSizeMultiplier={1.5}
         value={formattedValue}
@@ -128,7 +134,7 @@ function TimeInput(
           ]}
           rippleColor={
             Platform.OS !== 'ios'
-              ? Color(theme.colors.onSurface).fade(0.7).hex()
+              ? (accentColor ?? Color(theme.colors.onSurface).fade(0.7).hex())
               : undefined
           }
           onPress={() => onPress(clockType)}

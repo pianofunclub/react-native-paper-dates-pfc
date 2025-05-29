@@ -1,6 +1,7 @@
 import { ComponentProps, CSSProperties } from 'react'
 import type { ValidRangeType } from './Calendar'
 import type { TextInput } from 'react-native-paper'
+import { TextStyle } from 'react-native'
 
 export type DatePickerInputProps = {
   inputMode: 'start' | 'end'
@@ -28,6 +29,9 @@ export type DatePickerInputProps = {
   animationType?: 'slide' | 'fade' | 'none'
   presentationStyle?: 'pageSheet' | 'overFullScreen'
   startWeekOnMonday?: boolean
+  helperTextStyle?: TextStyle
+  accentColor?: string
+  selectColor?: string
 } & Omit<
   ComponentProps<typeof TextInput>,
   'value' | 'onChange' | 'onChangeText' | 'inputMode'
