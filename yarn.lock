@@ -2684,6 +2684,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pianofunclub/react-native-paper-dates@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@pianofunclub/react-native-paper-dates@workspace:."
+  dependencies:
+    "@commitlint/config-conventional": "npm:^19.8.0"
+    "@react-native-community/eslint-config": "npm:^3.2.0"
+    "@react-native-vector-icons/common": "npm:^11.0.0"
+    "@react-native-vector-icons/material-design-icons": "npm:^7.4.47"
+    "@react-native/babel-preset": "npm:^0.79.2"
+    "@release-it/conventional-changelog": "npm:^10.0.1"
+    "@testing-library/react-native": "npm:^13.2.0"
+    "@types/color": "npm:^4.2.0"
+    "@types/jest": "npm:^29.5.14"
+    "@types/react": "npm:~19.0.10"
+    "@types/react-native-vector-icons": "npm:^6.4.18"
+    "@types/react-test-renderer": "npm:~19.0.0"
+    babel-loader: "npm:^10.0.0"
+    caniuse-lite: "npm:^1.0.30001716"
+    color: "npm:^4.2.3"
+    commitlint: "npm:^19.8.0"
+    eslint: "npm:^8.57.1"
+    eslint-config-prettier: "npm:^10.1.2"
+    eslint-plugin-prettier: "npm:^5.2.6"
+    eslint-plugin-testing-library: "npm:^7.1.1"
+    husky: "npm:^9.1.7"
+    jest: "npm:^29.7.0"
+    metro-react-native-babel-preset: "npm:^0.77.0"
+    pod-install: "npm:^0.3.9"
+    prettier: "npm:^3.5.3"
+    react: "npm:~19.0.0"
+    react-native: "npm:^0.79.2"
+    react-native-builder-bob: "npm:^0.40.0"
+    react-native-paper: "npm:^5.14.0"
+    react-native-safe-area-context: "npm:^5.4.0"
+    react-native-vector-icons: "npm:^10.2.0"
+    react-test-renderer: "npm:~19.0.0"
+    release-it: "npm:^19.0.1"
+    typescript: "npm:~5.8.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-paper: "*"
+    react-native-safe-area-context: "*"
+  languageName: unknown
+  linkType: soft
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -10103,52 +10149,6 @@ __metadata:
   checksum: 10c0/04e5b9755404ba31e25fb7a6ad3ef1cf39a683dd6de3bdd0b34c93dbaf5dadf5f117115aff0149fb92d5c67f893925b9a9e78f5fad6079f98c1fd04590d01c96
   languageName: node
   linkType: hard
-
-"react-native-paper-dates@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-native-paper-dates@workspace:."
-  dependencies:
-    "@commitlint/config-conventional": "npm:^19.8.0"
-    "@react-native-community/eslint-config": "npm:^3.2.0"
-    "@react-native-vector-icons/common": "npm:^11.0.0"
-    "@react-native-vector-icons/material-design-icons": "npm:^7.4.47"
-    "@react-native/babel-preset": "npm:^0.79.2"
-    "@release-it/conventional-changelog": "npm:^10.0.1"
-    "@testing-library/react-native": "npm:^13.2.0"
-    "@types/color": "npm:^4.2.0"
-    "@types/jest": "npm:^29.5.14"
-    "@types/react": "npm:~19.0.10"
-    "@types/react-native-vector-icons": "npm:^6.4.18"
-    "@types/react-test-renderer": "npm:~19.0.0"
-    babel-loader: "npm:^10.0.0"
-    caniuse-lite: "npm:^1.0.30001716"
-    color: "npm:^4.2.3"
-    commitlint: "npm:^19.8.0"
-    eslint: "npm:^8.57.1"
-    eslint-config-prettier: "npm:^10.1.2"
-    eslint-plugin-prettier: "npm:^5.2.6"
-    eslint-plugin-testing-library: "npm:^7.1.1"
-    husky: "npm:^9.1.7"
-    jest: "npm:^29.7.0"
-    metro-react-native-babel-preset: "npm:^0.77.0"
-    pod-install: "npm:^0.3.9"
-    prettier: "npm:^3.5.3"
-    react: "npm:~19.0.0"
-    react-native: "npm:^0.79.2"
-    react-native-builder-bob: "npm:^0.40.0"
-    react-native-paper: "npm:^5.14.0"
-    react-native-safe-area-context: "npm:^5.4.0"
-    react-native-vector-icons: "npm:^10.2.0"
-    react-test-renderer: "npm:~19.0.0"
-    release-it: "npm:^19.0.1"
-    typescript: "npm:~5.8.3"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-    react-native-paper: "*"
-    react-native-safe-area-context: "*"
-  languageName: unknown
-  linkType: soft
 
 "react-native-paper@npm:^5.14.0":
   version: 5.14.0

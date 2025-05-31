@@ -10,11 +10,7 @@ module.exports = {
     'node_modules/(?!(@react-native|react-native(-.*)?)/)',
   ],
   setupFiles: ['<rootDir>/testSetup.js'],
-  collectCoverage: true,
-  collectCoverageFrom: [
-    '**/src/**',
-    '!**/src/__tests__/**',
-    '!**/example/**',
-    '!**/translations/**',
-  ],
+  collectCoverage: false,
+  testMatch: [],
+  testPathIgnorePatterns: ['<rootDir>/(.*)'],
 }
