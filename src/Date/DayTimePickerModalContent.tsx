@@ -16,8 +16,8 @@ import {
 } from '../Time/timeUtils'
 import TimeInputs from '../Time/TimeInputs'
 import DayOfWeek from './DayOfWeek'
-import { DisplayModeContext } from 'src/contexts/DisplayModeContext'
-import { useTextColor } from 'src/shared/utils'
+import { useTextColor } from '../shared/utils'
+import { DisplayModeContext } from '../contexts/DisplayModeContext'
 
 type onChangeFunc = ({
   hours,

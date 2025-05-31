@@ -22,7 +22,7 @@ import {
 import { SwitchButton } from '../Time/AmPmSwitcher'
 import TimeInputs from '../Time/TimeInputs'
 import { useTheme } from 'react-native-paper'
-import { DisplayModeContext } from 'src/contexts/DisplayModeContext'
+import { DisplayModeContext } from '../contexts/DisplayModeContext'
 
 type onChangeFunc = ({
   hours,
