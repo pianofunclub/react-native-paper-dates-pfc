@@ -1,6 +1,6 @@
 {
   "name": "@pianofunclub/react-native-paper-dates",
-  "version": "0.22.43-pianofunclub.1",
+  "version": "0.22.43-pianofunclub.2",
   "description": "Performant Date Picker for React Native Paper",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
