@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native'
-import { MD2Theme, Text, useTheme } from 'react-native-paper'
+import { MD2Theme, useTheme } from 'react-native-paper'
 
 import {
   clockTypes,
@@ -18,7 +18,6 @@ import TimeInput from './TimeInput'
 import AmPmSwitcher from './AmPmSwitcher'
 import { useLatest } from '../shared/utils'
 import Color from 'color'
-import { getTranslation } from '../translations/utils'
 import { memo, useCallback, useRef } from 'react'
 import { sharedStyles } from '../shared/styles'
 
@@ -31,7 +30,6 @@ function TimeInputs({
   onChange,
   is24Hour,
   inputFontSize,
-  locale,
   accentColor,
   textStyle,
 }: {
@@ -47,7 +45,6 @@ function TimeInputs({
   }) => any
   is24Hour: boolean
   inputFontSize?: number
-  locale?: string
   accentColor?: string
   textStyle?: TextStyle
 }) {
@@ -64,10 +61,6 @@ function TimeInputs({
       endInput.current.focus()
     }
   }, [endInput])
-
-  const onSubmitEndInput = useCallback(() => {
-    // TODO: close modal and persist time
-  }, [])
 
   const onChangeHours = useCallback(
     (newHours: number) => {
@@ -100,7 +93,7 @@ function TimeInputs({
           }
           returnKeyType={'next'}
           onSubmitEditing={onSubmitStartInput}
-          blurOnSubmit={false}
+          submitBehavior="submit"
           onChanged={(newHoursFromInput) => {
             let newHours = toHourOutputFormat(
               newHoursFromInput,
@@ -118,11 +111,6 @@ function TimeInputs({
           accentColor={accentColor}
           textStyle={textStyle}
         />
-        {inputType === 'keyboard' ? (
-          <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
-            {getTranslation(locale, 'hour', 'Hour')}
-          </Text>
-        ) : null}
       </View>
       <View
         style={[
@@ -171,7 +159,6 @@ function TimeInputs({
               ? Color(theme.colors.primary).darken(0.2).hex()
               : theme.colors.primary
           }
-          onSubmitEditing={onSubmitEndInput}
           onChanged={(newMinutesFromInput) => {
             let newMinutes = newMinutesFromInput
             if (newMinutesFromInput > 59) {
@@ -185,11 +172,6 @@ function TimeInputs({
           accentColor={accentColor}
           textStyle={textStyle}
         />
-        {inputType === 'keyboard' ? (
-          <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
-            {getTranslation(locale, 'minute', 'Minute')}
-          </Text>
-        ) : null}
       </View>
       {!is24Hour && (
         <>

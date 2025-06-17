@@ -119,7 +119,6 @@ function TimePicker({
           onChange={onChange}
           onFocusInput={onFocusInput}
           focused={focused}
-          locale={locale}
           accentColor={accentColor}
           textStyle={textStyle}
         />

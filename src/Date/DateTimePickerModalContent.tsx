@@ -59,7 +59,9 @@ export interface DateTimePickerModalContentProps
   textStyle?: TextStyle
 }
 
-export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
+export function DateTimePickerModalContent(
+  props: DateTimePickerModalContentProps
+) {
   const {
     onConfirm,
     onDismiss,
@@ -69,6 +71,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     dateMode,
     startYear,
     endYear,
+    startWeekOnMonday,
     accentColor,
     selectColor,
     textStyle,
@@ -264,6 +267,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
             endYear={endYear}
             accentColor={accentColor}
             selectColor={selectColor}
+            startWeekOnMonday={startWeekOnMonday}
             textStyle={textStyle}
           />
         </View>
@@ -312,7 +316,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
               </View>
             ) : null}
             <TimeInputs
-              inputType={'picker'}
+              inputType={'keyboard'}
               hours={
                 isStart
                   ? (state.date?.getHours() ?? 0)
@@ -409,4 +413,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default memo(DatePickerModalContent)
+export default memo(DateTimePickerModalContent)

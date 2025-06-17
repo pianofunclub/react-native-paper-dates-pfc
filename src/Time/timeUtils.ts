@@ -1,6 +1,7 @@
 import Color from 'color'
 import { useMemo } from 'react'
-import { MD2Theme, useTheme } from 'react-native-paper'
+import { useTheme } from 'react-native-paper'
+import { useTextColor } from '../shared/utils'
 
 export const circleSize = 256
 
@@ -167,57 +168,26 @@ export function useSwitchColors(
     return theme.colors.surface
   }, [highlighted, theme, accentColor])
 
-  const color = useMemo<string>(() => {
-    if (highlighted && !theme.dark) {
-      return theme.isV3 ? theme.colors.onSurfaceVariant : theme.colors.primary
-    }
-    if (highlighted && theme.dark) {
-      return theme.isV3
-        ? theme.colors.onTertiaryContainer
-        : theme.colors.background
-    }
-    if (theme.isV3) {
-      return theme.colors.onSurfaceVariant
-    } else {
-      return (theme as any as MD2Theme).colors.placeholder
-    }
-  }, [highlighted, theme])
+  const color = useTextColor(backgroundColor)
 
   return { backgroundColor, color }
 }
 
-export function useInputColors(
-  highlighted: boolean,
-  accentColor: string | undefined
-) {
+export function useInputColors(highlighted: boolean) {
   const theme = useTheme()
   const backgroundColor = useMemo<string>(() => {
     if (highlighted) {
-      return accentColor ?? Color(theme.colors.primary).lighten(1).hex()
+      return Color(theme.colors.surfaceVariant).darken(0.1).hex()
     }
-    return Color(theme.colors.surface).darken(0.1).hex()
-  }, [highlighted, theme, accentColor])
 
-  const color = useMemo<string>(() => {
-    if (theme.isV3) {
-      if (!highlighted) {
-        return theme.isV3 ? theme.colors.onSurface : theme.colors.onBackground
-      }
-      return theme.isV3
-        ? theme.colors.onPrimaryContainer
-        : theme.colors.onBackground
-    } else {
-      const t = theme as any as MD2Theme
-      if (highlighted && !theme.dark) {
-        const primary = Color(t.colors.primary)
-        const background = Color(backgroundColor)
-        return background.isDark() && primary.isDark()
-          ? '#ffffffff'
-          : t.colors.primary
-      }
-      return (theme as any as MD2Theme).colors.text
-    }
-  }, [highlighted, theme, backgroundColor])
+    const v3Color = theme.colors.surfaceVariant
+    const v2Color = theme.dark
+      ? Color(theme.colors.surface).lighten(1.4).hex()
+      : Color(theme.colors.surface).darken(0.1).hex()
+    return theme.isV3 ? v3Color : v2Color
+  }, [highlighted, theme])
+
+  const color = useTextColor(backgroundColor)
 
   return { backgroundColor, color }
 }

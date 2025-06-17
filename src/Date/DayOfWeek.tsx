@@ -53,6 +53,7 @@ function DayOfWeek(props: {
         >
           <Text
             style={[
+              styles.text,
               textColor && {
                 color: textColor,
               },
@@ -103,6 +104,9 @@ const styles = StyleSheet.create({
   },
   flex1: {
     flex: 1,
+  },
+  text: {
+    fontSize: 16,
   },
 })
 

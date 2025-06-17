@@ -54,11 +54,7 @@ export function useHeaderColorIsLight(backgroundColor: string | undefined) {
 }
 
 export function useTextColor(backgroundColor: string | undefined) {
-  const theme = useTheme()
   const isLight = useHeaderColorIsLight(backgroundColor)
-  if (theme.isV3) {
-    return theme.colors.onSurfaceVariant
-  }
   return !isLight ? '#CCE4D9' : '#3D3C3C'
 }
 
