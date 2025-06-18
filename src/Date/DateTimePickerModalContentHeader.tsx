@@ -163,9 +163,7 @@ export function HeaderContentSingle({
   const endDate = state.endDate
 
   return (
-    <Text
-      style={[styles.singleHeaderText, { color: dateColor }, labelTextStyle]}
-    >
+    <Text style={[styles.headerText, { color: dateColor }, labelTextStyle]}>
       {date
         ? `${formatter.format(date)}${
             endDate ? ' - ' + hourFormatter.format(endDate) : ''
@@ -204,9 +202,7 @@ export function HeaderContentMulti({
     }
   }
 
-  return (
-    <Text style={[styles.singleHeaderText, { color: dateColor }]}>{label}</Text>
-  )
+  return <Text style={[styles.headerText, { color: dateColor }]}>{label}</Text>
 }
 
 export function HeaderContentRange({
@@ -230,11 +226,11 @@ export function HeaderContentRange({
 
   return (
     <>
-      <Text style={[styles.rangeHeaderText, { color: startColor }]}>
+      <Text style={[styles.headerText, { color: startColor }]}>
         {state.startDate ? formatter.format(state.startDate) : startLabel}
       </Text>
       <Text style={[styles.headerSeparator, { color }]}>{headerSeparator}</Text>
-      <Text style={[styles.rangeHeaderText, { color: endColor }]}>
+      <Text style={[styles.headerText, { color: endColor }]}>
         {state.endDate ? formatter.format(state.endDate) : endLabel}
       </Text>
     </>
@@ -261,15 +257,7 @@ const styles = StyleSheet.create({
   },
   headerContentContainer: { marginTop: 5, flexDirection: 'row' },
   label: { color: '#fff', letterSpacing: 1, fontSize: 13 },
-  singleHeaderText: { color: '#fff', fontSize: 25 },
-  rangeHeaderText: { color: '#fff', fontSize: 25 },
-  excludeInRangeHeaderText: { fontSize: 25 },
-  excludeInRangeHeaderTextSmall: {
-    fontSize: 14,
-    marginTop: -3,
-    marginLeft: 3,
-  },
-
+  headerText: { color: '#fff', fontSize: 25 },
   headerSeparator: {
     color: 'rgba(255,255,255,1)',
     fontSize: 25,

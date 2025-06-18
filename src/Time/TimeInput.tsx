@@ -53,7 +53,7 @@ function TimeInput(
 
   const highlighted = inputType === inputTypes.picker ? pressed : inputFocused
 
-  const { color, backgroundColor } = useInputColors(highlighted, accentColor)
+  const { color, backgroundColor } = useInputColors(highlighted)
 
   useEffect(() => {
     setControlledValue(`${value}`)
@@ -82,12 +82,7 @@ function TimeInput(
         {
           backgroundColor,
           borderRadius: theme.roundness * 2,
-          borderColor:
-            theme.isV3 && highlighted
-              ? theme.colors.onPrimaryContainer
-              : undefined,
-          borderWidth: theme.isV3 && highlighted ? 2 : 0,
-          height: inputType === inputTypes.keyboard ? 72 : 80,
+          height: 80,
         },
       ]}
     >
@@ -107,6 +102,7 @@ function TimeInput(
               Platform.OS === 'android'
                 ? Math.max(inputFontSize, 48)
                 : undefined,
+            height: '100%',
             paddingTop: Platform.OS === 'android' ? 10 : undefined,
             paddingBottom: Platform.OS === 'android' ? 0 : undefined,
             textAlign: 'center',

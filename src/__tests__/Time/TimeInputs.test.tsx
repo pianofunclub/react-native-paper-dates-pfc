@@ -12,7 +12,6 @@ it('renders TimeInputs', () => {
       hours={12}
       minutes={45}
       is24Hour
-      locale="en"
       onChange={() => null}
       onFocusInput={() => null}
       focused="hours"

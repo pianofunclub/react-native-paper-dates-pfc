@@ -8,12 +8,10 @@ import Calendar, {
   SingleChange,
 } from './Calendar'
 
-import AnimatedCrossView from './AnimatedCrossView'
 import DatePickerModalHeader from './DatePickerModalHeader'
 import DatePickerModalContentHeader, {
   HeaderPickProps,
 } from './DatePickerModalContentHeader'
-import CalendarEdit from './CalendarEdit'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
 import { useTheme } from 'react-native-paper'
 import DatePickerModalStatusBar from './DatePickerModalStatusBar'
@@ -99,7 +97,6 @@ export function DatePickerModalContent(
     accentColor,
     selectColor,
     textStyle,
-    inputTextStyle,
   } = props
   const theme = useTheme()
   const anyProps = props as any
@@ -112,7 +109,6 @@ export function DatePickerModalContent(
     endDate: anyProps.endDate,
     dates: anyProps.dates,
   })
-  const [collapsed, setCollapsed] = useState(true)
 
   // update local state if changed from outside or if modal is opened
   useEffect(() => {
@@ -149,10 +145,6 @@ export function DatePickerModalContent(
     }
   }, [state, mode, onConfirm])
 
-  const onToggleCollapse = useCallback(() => {
-    setCollapsed((prev) => !prev)
-  }, [setCollapsed])
-
   return (
     <>
       <DatePickerModalHeaderBackground color={accentColor}>
@@ -171,16 +163,12 @@ export function DatePickerModalContent(
           uppercase={props.uppercase ?? defaultUppercase}
           closeIcon={props.closeIcon}
           accentColor={accentColor}
-          saveButtonLabelStyle={StyleSheet.flatten([
-            styles.saveButtonLabel,
-            textStyle,
-          ])}
+          hideSaveButton
         />
         <DatePickerModalContentHeader
           state={state}
           mode={mode}
-          collapsed={collapsed}
-          onToggle={onToggleCollapse}
+          collapsed={true}
           headerSeparator={props.headerSeparator}
           emptyLabel={props.emptyLabel}
           label={props.label}
@@ -193,54 +181,37 @@ export function DatePickerModalContent(
           calendarIcon={props.calendarIcon}
           allowEditing={props.allowEditing ?? true}
           accentColor={accentColor}
-          textStyle={textStyle}
+          labelTextStyle={textStyle}
+          saveLabel={props.saveLabel}
+          saveLabelDisabled={props.saveLabelDisabled ?? false}
+          saveButtonLabelStyle={StyleSheet.flatten([
+            styles.saveButtonLabel,
+            textStyle,
+          ])}
+          showSaveButton
+          onSave={onInnerConfirm}
         />
       </DatePickerModalHeaderBackground>
-      <AnimatedCrossView
-        collapsed={collapsed}
-        calendar={
-          <View style={styles.calendarContainer}>
-            <Calendar
-              locale={locale}
-              mode={mode}
-              startDate={state.startDate}
-              endDate={state.endDate}
-              date={state.date}
-              onChange={onInnerChange}
-              disableWeekDays={disableWeekDays}
-              dates={state.dates}
-              validRange={validRange}
-              dateMode={dateMode}
-              startYear={startYear}
-              endYear={endYear}
-              startWeekOnMonday={startWeekOnMonday}
-              accentColor={accentColor}
-              selectColor={selectColor}
-              textStyle={textStyle}
-            />
-          </View>
-        }
-        calendarEdit={
-          <CalendarEdit
-            mode={mode}
-            state={state}
-            label={props.label}
-            startLabel={props.startLabel}
-            endLabel={props.endLabel}
-            collapsed={collapsed}
-            onChange={onInnerChange}
-            validRange={validRange}
-            locale={locale}
-            inputEnabled={props.inputEnabled}
-            withDateFormatInLabel={props.withDateFormatInLabel}
-            placeholder={props.placeholder}
-            accentColor={accentColor}
-            selectColor={selectColor}
-            helperTextStyle={textStyle}
-            inputTextStyle={inputTextStyle}
-          />
-        }
-      />
+      <View style={styles.calendarContainer}>
+        <Calendar
+          locale={locale}
+          mode={mode}
+          startDate={state.startDate}
+          endDate={state.endDate}
+          date={state.date}
+          onChange={onInnerChange}
+          disableWeekDays={disableWeekDays}
+          dates={state.dates}
+          validRange={validRange}
+          dateMode={dateMode}
+          startYear={startYear}
+          endYear={endYear}
+          startWeekOnMonday={startWeekOnMonday}
+          accentColor={accentColor}
+          selectColor={selectColor}
+          textStyle={textStyle}
+        />
+      </View>
     </>
   )
 }
